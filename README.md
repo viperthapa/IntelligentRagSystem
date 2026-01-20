@@ -21,15 +21,20 @@ The backend is built with FastAPI and uses PostgreSQL with pgvector for vector s
 
 3. **Install dependencies:**
    ```bash
-   pip install -r requirements.txt
-   # or if using uv
-   uv sync
+   poetry install
    ```
 
 4. **Environment Setup:**
-   Rename a `.env.example` to `.env`
-   Update the credentials for postgres database,gemini key and embeding model
-
+   ```bash
+   1. Rename .env.example to .env
+   ```
+   ```bash
+   2. Update the credentials for postgres database.  
+   ```
+   ```bash
+   3. Update the GEMINI_API_KEY and EMBEDDING_MODEL.
+   ```
+   
 5. **Database Setup:**
    - Ensure PostgreSQL is running with pgvector extension installed.
  
