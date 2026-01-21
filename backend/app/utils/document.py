@@ -1,5 +1,4 @@
 import asyncio
-import os
 
 from typing import List,Tuple
 
@@ -7,8 +6,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import text, bindparam, Integer
 
-import google.generativeai as genai
+import google.genai as genai
 
 from app.config import settings
 from app.models.document import Document, DocumentChunk
@@ -22,7 +22,7 @@ EMBEDDING_DIMENSION = settings.EMBEDDING_DIMENSION
 CHUNK_SIZE = 900
 CHUNK_OVERLAP = 180
 
-genai.configure(api_key=settings.GEMINI_API_KEY)
+genai_client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
@@ -104,8 +104,6 @@ async def index_document(
         
         return doc
 
-from sqlalchemy import text, bindparam, Integer
-from pgvector.sqlalchemy import Vector
 
 async def retrieve_chunks(
         query: str,
@@ -183,6 +181,8 @@ async def generate_answer(query: str, context_chunks: List[Tuple[str, float]]) -
         Question: {query}
         Answer:"""
     
-    model = genai.GenerativeModel('gemini-2.5-flash')
-    response = model.generate_content(prompt)
+    response = genai_client.models.generate_content(
+        model='gemini-2.5-flash',
+        contents=prompt
+    )
     return response.text

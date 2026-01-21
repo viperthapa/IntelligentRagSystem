@@ -1,4 +1,3 @@
-import google.generativeai as genai
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -10,8 +9,6 @@ from app.utils.document import generate_answer, retrieve_chunks
 
 router = APIRouter()
 
-genai.configure(api_key=settings.GEMINI_API_KEY )
-model = genai.GenerativeModel('gemini-1.5-flash')
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_with_document(

@@ -61,18 +61,18 @@ async def upload_document(
         raise HTTPException(status_code=400, detail="File is empty")
     
      # Index document (chunk + embed + store)
-    # try:
-    document = await index_document(
-        db=db,
-        file_name=file.filename,
-        full_text=content,
-        file_type=file_type
-    )
-    return DocumentCreate(
-        id=document.id,
-        file_name=document.file_name,
-        file_type=document.file_type,
-    )
-    # except Exception as e:
-        # raise HTTPException(status_code=500, detail=f"Error indexing document: {str(e)}")
+    try:
+        document = await index_document(
+            db=db,
+            file_name=file.filename,
+            full_text=content,
+            file_type=file_type
+        )
+        return DocumentCreate(
+            id=document.id,
+            file_name=document.file_name,
+            file_type=document.file_type,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error indexing document: {str(e)}")
     

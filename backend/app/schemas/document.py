@@ -12,10 +12,6 @@ class DocumentCreate(BaseModel):
         from_attributes = True
 
 
-class ChatMessage(BaseModel):
-    role: str  # "user" or "assistant"
-    content: str
-
 class ChatRequest(BaseModel):
     question: str
     document_id: int
