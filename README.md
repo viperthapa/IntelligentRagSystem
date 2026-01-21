@@ -58,21 +58,21 @@ The backend is built with FastAPI and uses PostgreSQL with pgvector for vector s
    cd backend
    python -m venv my_env  # Create virtual environment (if not present)
    source my_env/bin/activate  # Activate (on Windows: my_env\Scripts\activate)
-   poetry install .  # Install dependencies
+   poetry install   # Install dependencies
    ```
 
 3. **Environment Setup:**
-   - Create a `.env` file in the `backend/` directory with the following variables:
+    
+    Rename a `.env.example` file to a `.env` file in the `backend/` and update the below   credentials accordingly
      ```
-    DB_USERNAME= YOUR_USERNAME
-    DB_PASSWORD= YOUR_PASSWORD
-    DB_HOST= localhost
-    DB_PORT= 5432
-    DB_NAME= YOUR_DATABASE_NAME
-    GEMINI_API_KEY= YOUR_GEMINI_KEY
-    EMBEDDING_MODEL = YOUR_EMBEDDING_MODEL
+    - DB_USERNAME= YOUR_USERNAME
+    - DB_PASSWORD= YOUR_PASSWORD
+    - DB_HOST= localhost
+    - DB_PORT= 5432
+    - DB_NAME= YOUR_DATABASE_NAME
+    - GEMINI_API_KEY= YOUR_GEMINI_KEY
+    - EMBEDDING_MODEL = YOUR_EMBEDDING_MODEL
     ```
-   - Update the values accordingly.
 
 
 5. **Run the server:**
