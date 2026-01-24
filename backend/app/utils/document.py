@@ -19,8 +19,8 @@ DATABASE_URL = settings.DATABASE_URL
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 EMBEDDING_DIMENSION = settings.EMBEDDING_DIMENSION
 
-CHUNK_SIZE = 900
-CHUNK_OVERLAP = 180
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200
 
 genai_client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
@@ -32,8 +32,8 @@ async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False
 # ─── TEXT SPLITTER (your original function) ────────────────────────────────────
 def split_text_into_chunks(
     text: str,
-    chunk_size: int = 1000,
-    chunk_overlap: int = 200
+    chunk_size: int = CHUNK_SIZE,
+    chunk_overlap: int = CHUNK_OVERLAP
 ) -> list[str]:
     """
     Splits text into overlapping chunks using RecursiveCharacterTextSplitter
